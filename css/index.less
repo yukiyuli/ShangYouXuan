@@ -192,6 +192,7 @@
             #center {
                 margin: 5px 0 15px;
                 .clearfix();
+
                 //左侧放大镜开始
                 #left {
                     width: 400px;
@@ -303,76 +304,91 @@
                 .right {
                     width: 700px;
                     float: right;
+
                     //商品详情数据结构开始
-                    .rightTop{
+                    .rightTop {
                         .clearfix();
-                        h3{
+
+                        h3 {
                             font-size: 14px;
                             line-height: 21px;
                             margin-top: 15px;
                         }
-                        > p{ //直接的子元素
+
+                        >p {
+                            //直接的子元素
                             color: #e12228;
                             margin-top: 15px;
                         }
-                        .priceWrap{
+
+                        .priceWrap {
                             margin-top: 10px;
                             line-height: 28px;
                             background: #fee9ec;
                             padding: 7px;
-                            .priceTop{
+
+                            .priceTop {
                                 .clearfix();
+
                                 // 价格
-                                > span{
+                                >span {
                                     margin-right: 15px;
                                     float: left;
-                                    } 
+                                }
+
                                 // 中间
-                                .price{
+                                .price {
                                     float: left;
                                     color: #cc1222;
-                                    > span {
+
+                                    >span {
                                         font-size: 16px;
                                         float: left;
                                     }
+
                                     p {
                                         font-size: 24px;
                                         float: left;
                                         font-weight: bold;
                                     }
-                                    i{
+
+                                    i {
                                         font-size: 12px;
                                         color: #cc1222;
                                         float: left;
                                     }
                                 }
-                                // 累计评价
-                                > p{
-                                    float: right;
-                                    > span {
-                                        
 
-                                    }
+                                // 累计评价
+                                >p {
+                                    float: right;
+
+                                    >span {}
                                 }
 
                             }
-                            .priceBottom{
+
+                            .priceBottom {
 
                                 .clearfix();
+
                                 //促销
-                                > span{
+                                >span {
                                     float: left;
                                     margin-right: 15px;
                                 }
+
                                 //加价购
-                                p{
+                                p {
                                     width: 520px;
                                     line-height: 28px;
                                     float: left;
-                                    > span{
+
+                                    >span {
                                         color: #999;
+
                                         // 加价购
-                                        &:first-child{
+                                        &:first-child {
                                             background: #c81623;
                                             padding: 3px;
                                             color: #fff;
@@ -383,39 +399,104 @@
                         }
                     }
 
-                    .support{
+                    .support {
                         margin-top: 10px;
                         line-height: 28px;
                         .clearfix();
-                        > span{
+
+                        >span {
                             margin-right: 15px;
                             float: left;
                         }
-                        > p{
+
+                        >p {
                             float: left;
                             color: #999;
                         }
                     }
-                    .address{
+
+                    .address {
                         border-bottom: 1px solid #ededed;
                         margin-top: 10px;
                         padding-bottom: 5px;
                         line-height: 28px;
                         .clearfix();
-                        > span{
+
+                        >span {
                             margin-right: 15px;
                             float: left;
                         }
-                        > p{
+
+                        >p {
                             float: left;
                             color: #999;
                         }
                     }
 
+                    // 下面
+                    .rightBottom {
+                        margin-top: 10px;
+                        line-height: 28px;
+
+                        // 选择之后结果的区域开始
+                        .choose {
+                            .clearfix();
+
+                            .mark {
+                                height: 30px;
+                                background: snow;
+                                border: 1px solid #ddd;
+                                padding: 0 20px;
+                                margin-right: 20px;
+                                text-align: center;
+                                line-height: 30px;
+                                float: left;
+
+                                a {
+                                    color: red;
+                                    margin-left: 20px;
+                                }
+                            }
+                        }
+
+                        // 选择之后结果的区域结束
+
+                        // 善品参数选择区域开始
+                        .chooseWrap {
+
+                            dl {
+                                margin-top: 13px;
+                                margin-bottom: 13px;
+                                .clearfix();
+
+                                dt {
+                                    margin-right: 15px;
+                                    float: left;
+                                }
+
+                                dd {
+                                    float: left;
+                                    margin-right: 5px;
+                                    color: #666;
+                                    line-height: 24px;
+                                    padding: 2px 14px;
+                                    border-top: 1px solid #eee;
+                                    border-left: 1px solid #eee;
+                                    border-right: 1px solid #bbb;
+                                    border-bottom: 1px solid #bbb;
+
+                                    &:first-of-type {
+                                        color: red;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
 
     }
+
     //内容区域结束
 }

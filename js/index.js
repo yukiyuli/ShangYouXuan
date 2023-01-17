@@ -254,4 +254,187 @@ window.onload = function () {
         }
 
     }
+
+    // 商品详情数据的动态渲染
+    rightTopData();
+    function rightTopData() {
+        /**
+        * 思路：
+        * 1、查找rightTop元素
+        * 2、查找data.js->goodData->goodsDetail
+        * 3、建立一个字符串变量，将原来的布局结构贴进来，将所对应的数据放在对应的位置上，重新熏染rightTop元素
+        * 3、然后再发生点击事件
+        */
+
+        // 1、查找rightTop元素
+        var rightTop = document.querySelector('#wrapper #content .contentMain #center .right .rightTop');
+
+        // 2、查找data.js->goodData->goodsDetail
+        var goodsDetail = goodData.goodsDetail;
+
+        // 3、创建一个字符窜(双引号，单引号，模版字符串)变量
+        // 4、模版字符串替换数据：${变量}
+        var s = `        
+            <h3>${goodsDetail.title}</h3>     
+            <p>${goodsDetail.recommend}</p>
+            <div class="priceWrap">
+                
+                <div class="priceTop">
+                    <span>价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格</span>
+                    <div class="price">
+                        <span>￥</span>
+                        <p>${goodsDetail.price}</p>
+                        <i>降价通知</i>
+                    </div>
+                    <p>
+                        <span>累计评价</span>
+                        <span>${goodsDetail.evaluateNum}</span>
+                    </p>
+                </div>
+                <div class="priceBottom">
+                    <span>促&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;销</span>
+                    <p>
+                        <span>${goodsDetail.promoteSales.type}</span>
+                        <span>${goodsDetail.promoteSales.content}</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="support">
+                <span>支&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;持</span>
+                <p>${goodsDetail.support}</p>
+            </div>
+            <div class="address">
+                <span>配&nbsp;送&nbsp;至</span>
+                <p>${goodsDetail.address}</p>
+            </div>`;
+
+
+        // 4、重新渲染rightTop元素  innterText只能识别文本，innerHTML才能识别标签
+        rightTop.innerHTML = s;
+
+    }
+
+    // 商品参数数据的动态渲染
+    rightBottomData();
+    function rightBottomData() {
+        /**
+        * 思路：
+        * 1、查找rightBottom元素对象
+        * 2、查找data.js->goodData.goodsDetail.crumbData数据
+        * 3、由于数据是一个数组，需要遍历，有一个元素则需要有一个动态的dl元素对象(dt,dd)
+        * 4、然后再发生点击事件
+        */
+
+        // 1、查找rightBottom元素对象
+        var chooseWrap = document.querySelector('#wrapper #content .contentMain #center .right .rightBottom .chooseWrap');
+
+        // 2、查找data.js->goodData.goodsDetail.crumbData数据
+        var crumbData = goodData.goodsDetail.crumbData;
+
+        // 3、循环数据
+        for (var i = 0; i < crumbData.length; i++) {
+
+            // 4、创建dl元素对象
+            var dlNode = document.createElement('dl');
+
+            // 5、穿件dt元素对象
+            var dtNODE = document.createElement('dt');
+            dtNODE.innerText = crumbData[i].title;
+
+            // 6、追加dt
+            dlNode.appendChild(dtNODE);
+
+            // 7、遍历crumbData->Data
+            for (var j = 0; j < crumbData[i].data.length; j++) {
+
+                // 创建dd元素
+                var ddNode = document.createElement('dd');
+                ddNode.innerText = crumbData[i].data[j].type;
+
+                // 让dl追加dd
+                dlNode.appendChild(ddNode);
+            }
+
+            // 7、让chooseWrap追加dl
+            chooseWrap.appendChild(dlNode);
+        }
+
+    }
+
+    // 点击商品参数之后的颜色排他效果
+    clickddBind();
+    function clickddBind() {
+
+        /**
+        * 思路：
+        * 1、获取所有的dl元素，取其中第一个dl元素下的所有dd先做测试, 
+        *    测试完毕之后在对应dl第一行下表的前面再潜逃一个for循环，目的是变换下表
+        * 2、循环所有的dd元素并且添加点击事件
+        * 3、确定实际发生时间的目标源对象设置其文字颜色为红色，然后给其他所有的元素颜色都充值胃基础颜色(#666)
+        * =====================================================================================
+        * 
+        * 点击dd之后产生的mark标记
+        * 思路：
+        * 1、先创建一个可以容纳点击的dd元素值的容器（数组），确定数组的起始长度，再砍价一些默认值
+        * 2、将点击的dd元素值按照对应下标来写入数组的元素身上
+        */
+
+        // 用var定义的变量，for循环是同时进行的，改用let可以解决这个问题
+
+        // 1、找第一个dl下的所有dd元素
+        var dlNodes = document.querySelectorAll('#wrapper #content .contentMain #center .right .rightBottom .chooseWrap dl');
+
+        var choose = document.querySelector('#wrapper #content .contentMain #center .right .rightBottom .choose')
+
+        let arr = new Array(dlNodes.length).fill(0);
+
+        for (let i = 0; i < dlNodes.length; i++) {
+            let ddNodes = dlNodes[i].querySelectorAll('dd');
+
+            // 2、 遍历当前所有的dd元素
+            for (let j = 0; j < ddNodes.length; j++) {
+
+                ddNodes[j].onclick = function () {
+
+                    // 清空choose元素
+                    choose.innerHTML = "";
+
+                    for (let k = 0; k < ddNodes.length; k++) {
+                        ddNodes[k].style.color = "#666";
+                    }
+                    // 相同下表的dd元素的字体颜色，在进行覆盖，而其他未点击的元素都是在进行重新设置颜色
+                    ddNodes[j].style.color = "red"
+
+                    // 点击哪一个dd元素动态的产生一个新的mark标记元素
+                    arr[i] = ddNodes[j].innerText;
+
+                    // 遍历arr数组，将非0元素的值写入到mark标记
+                    arr.forEach(function (value) {
+                        // 只要是为真的条件，就动态的来创建mark标签
+                        if (value) {
+                            // 创建div元素
+                            let markDiv = document.createElement('div');
+                            // 设置class属性
+                            markDiv.className = 'mark'
+                            markDiv.innerText = value;
+                            // 创建a元素
+                            let aNode = document.createElement('a');
+                            // 设置a元素值
+                            aNode.innerText = 'X'
+                            // 让div追加a
+                            markDiv.appendChild(aNode);
+
+                            // 让choose元素追加div
+                            choose.appendChild(markDiv);
+                        }
+                    })
+
+
+                }
+            }
+        }
+
+    }
 }
+
