@@ -1,4 +1,2 @@
-# ShangYouXuan
-HTML, CSS, JS project
 
-link: https://yukiyuli.github.io/ShangYouXuan/index.html
+Preview link: https://yukiyuli.github.io/ShangYouXuan/
